@@ -2,8 +2,25 @@
 //  ButtonGameScene.swift
 //  SKAToolKit
 //
-//  Created by Marc Vandehey on 9/1/15.
-//  Copyright © 2015 SpriteKit Alliance. All rights reserved.
+//  Copyright (c) 2015 Sprite Kit Alliance
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to
+//  deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+//  sell copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+//  IN THE SOFTWARE.
 //
 
 import Foundation
@@ -18,7 +35,7 @@ class ButtonGameScene: SKScene {
   let shakeKey = "action-shake"
   let shakeHarderKey = "action-shake-harder"
   let atlas = SKTextureAtlas(named: "Textures")
-
+  
   override func didMoveToView(view: SKView) {
     super.didMoveToView(view)
     
@@ -29,12 +46,12 @@ class ButtonGameScene: SKScene {
     disableButton.position = CGPoint(x: view.center.x, y: UIScreen.mainScreen().bounds.height - 100)
     disableButton.addTarget(self, selector: "disableSKA:", forControlEvents: .TouchUpInside)
     disableButton.setButtonTargetSize(CGSize(width: 300, height: 60))
-
+    
     addChild(disableButton)
     
     //Dance Action
     let textures = [self.atlas.textureNamed("ska-dance1"), self.atlas.textureNamed("ska-dance2"), self.atlas.textureNamed("ska-dance1"), self.atlas.textureNamed("ska-dance3")]
-
+    
     let dance = SKAction.animateWithTextures(textures, timePerFrame: 0.12, resize: true, restore: true)
     danceAction = SKAction.repeatActionForever(dance)
     
@@ -102,10 +119,10 @@ class ButtonGameScene: SKScene {
     print("SKABUTTON: dragExit")
     button.removeActionForKey(shakeKey)
     button.removeActionForKey(shakeHarderKey)
-
+    
     if button.selected ?? false {
       button.selected = true
-    
+      
       button.runAction(danceAction, withKey: danceKey)
     }
   }
@@ -115,7 +132,7 @@ class ButtonGameScene: SKScene {
     
     button.removeActionForKey(danceKey)
     button.removeActionForKey(shakeHarderKey)
-
+    
     //Shake a little
     button.runAction(makeNewShakeAction(2), withKey: shakeKey)
   }
