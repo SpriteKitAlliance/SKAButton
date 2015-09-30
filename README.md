@@ -9,13 +9,13 @@ The Sprite Kit Alliance is happy to provide the SKAButton and SKAToolKit free of
 pod 'SKAButton'
     
 ##Useful Methods
-	//Add Targets to the button
+    //Add Targets to the button
     button.addTarget(self, selector: "buttonDoneWasTouched:", forControlEvents: .TouchUpInside)
-
-  //Add target for multiple events
+    
+    //Add target for multiple events
     button.addTarget(self, selector: "moreThanOneEvent:", forControlEvents: SKAControlEvent.DragEnter.union(.DragExit))
 
-  //Set button target size independently of the button texture size
+    //Set button target size independently of the button texture size
     button.setButtonTargetSize(CGSize(width: 300, height: 60))
 
 ###Edge Cases
@@ -37,5 +37,3 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #Happy Clicking!
-
-
