@@ -1,7 +1,7 @@
 #SKAToolKit - SKAButton
 SKAButton is a simple button class for Sprite Kit that mimics the usefulness of UIButton. SKAButton is in the SKAToolKit family created by the Sprite Kit Alliance to be used with Apples Sprite Kit framework.  
 
-The Sprite Kit Alliance is happy to provide the SKAButton and SKAToolKit free of charge without any warranty or guarantee (see license below for more info). If there is a feature missing or you would like added please email Skyler at skyler@skymistdevelopment.com.
+The Sprite Kit Alliance is happy to provide the SKAButton and SKAToolKit free of charge without any warranty or guarantee (see license below for more info). If there is a feature missing or you would like added please email us at join@spritekitalliance.com
 
 ##SKAToolKit Install Instructions
 
