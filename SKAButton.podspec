@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.requires_arc = true
-  s.source_files = 'SKAButton'
+  s.source_files = 'SKAButton/*.swift'
   s.frameworks  = 'SpriteKit'
   s.xcconfig       = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/"' }
 end
