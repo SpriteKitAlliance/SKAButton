@@ -41,7 +41,7 @@
 		BB334D0C1B95DEF400C07C39 /* SKAButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButtonViewController.swift; path = Views/SKAButtonViewController.swift; sourceTree = "<group>"; };
 		BB334D101B95E0A800C07C39 /* ButtonGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonGameScene.swift; path = Scenes/ButtonGameScene.swift; sourceTree = "<group>"; };
 		BB6743801BA203C3008F1D11 /* Textures.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Textures.atlas; sourceTree = "<group>"; };
-		BBEC29E41B94B3B8000D9964 /* SKAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButton.swift; path = ../../SKAToolKit/SKAButton/SKAButton.swift; sourceTree = "<group>"; };
+		BBEC29E41B94B3B8000D9964 /* SKAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButton.swift; path = ../../SKAButton/SKAButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
