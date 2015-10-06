@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'SKAButton'
-  s.version  = '1.0'
+  s.version  = '1.0.1'
   s.license  = 'MIT'
   s.summary  = 'SKAButton of the SKAToolKit is a simple button class for SpriteKit that mimics the usefulness of UIButton'
   s.homepage = 'http://spritekitalliance.com/'
@@ -20,7 +20,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.requires_arc = true
-  s.source_files = 'SKAButton/*.swift'
+  s.source_files = 'Source/*.swift'
   s.frameworks  = 'SpriteKit'
-  s.xcconfig       = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/"' }
 end

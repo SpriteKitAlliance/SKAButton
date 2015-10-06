@@ -14,7 +14,8 @@
 		BB334D0D1B95DEF400C07C39 /* SKAButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB334D0C1B95DEF400C07C39 /* SKAButtonViewController.swift */; };
 		BB334D111B95E0A800C07C39 /* ButtonGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB334D101B95E0A800C07C39 /* ButtonGameScene.swift */; };
 		BB6743811BA203C3008F1D11 /* Textures.atlas in Resources */ = {isa = PBXBuildFile; fileRef = BB6743801BA203C3008F1D11 /* Textures.atlas */; };
-		BBEC29E51B94B3B8000D9964 /* SKAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC29E41B94B3B8000D9964 /* SKAButton.swift */; };
+		BBF98F001BC2FBEF002748DD /* SKAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF98EFE1BC2FBEF002748DD /* SKAButton.swift */; };
+		BBF98F011BC2FBEF002748DD /* SKAControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF98EFF1BC2FBEF002748DD /* SKAControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +42,8 @@
 		BB334D0C1B95DEF400C07C39 /* SKAButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButtonViewController.swift; path = Views/SKAButtonViewController.swift; sourceTree = "<group>"; };
 		BB334D101B95E0A800C07C39 /* ButtonGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonGameScene.swift; path = Scenes/ButtonGameScene.swift; sourceTree = "<group>"; };
 		BB6743801BA203C3008F1D11 /* Textures.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Textures.atlas; sourceTree = "<group>"; };
-		BBEC29E41B94B3B8000D9964 /* SKAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButton.swift; path = ../../SKAButton/SKAButton.swift; sourceTree = "<group>"; };
+		BBF98EFE1BC2FBEF002748DD /* SKAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButton.swift; path = ../../Source/SKAButton.swift; sourceTree = "<group>"; };
+		BBF98EFF1BC2FBEF002748DD /* SKAControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAControl.swift; path = ../../Source/SKAControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +93,7 @@
 				BB6743801BA203C3008F1D11 /* Textures.atlas */,
 				BB334D0F1B95E07700C07C39 /* Scenes */,
 				BB334D0E1B95E07000C07C39 /* Controllers */,
-				BBEC29E31B94B3A0000D9964 /* SKAToolKit */,
+				BBEC29E31B94B3A0000D9964 /* Source */,
 			);
 			path = SKAToolKit;
 			sourceTree = "<group>";
@@ -130,12 +132,13 @@
 			name = Scenes;
 			sourceTree = "<group>";
 		};
-		BBEC29E31B94B3A0000D9964 /* SKAToolKit */ = {
+		BBEC29E31B94B3A0000D9964 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BBEC29E41B94B3B8000D9964 /* SKAButton.swift */,
+				BBF98EFE1BC2FBEF002748DD /* SKAButton.swift */,
+				BBF98EFF1BC2FBEF002748DD /* SKAControl.swift */,
 			);
-			name = SKAToolKit;
+			name = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,9 +243,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB334D111B95E0A800C07C39 /* ButtonGameScene.swift in Sources */,
+				BBF98F011BC2FBEF002748DD /* SKAControl.swift in Sources */,
+				BBF98F001BC2FBEF002748DD /* SKAButton.swift in Sources */,
 				BB22A83E1B94B2460064B89E /* AppDelegate.swift in Sources */,
 				BB334D0D1B95DEF400C07C39 /* SKAButtonViewController.swift in Sources */,
-				BBEC29E51B94B3B8000D9964 /* SKAButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
