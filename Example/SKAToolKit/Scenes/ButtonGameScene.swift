@@ -56,9 +56,10 @@ class ButtonGameScene: SKScene {
     danceAction = SKAction.repeatActionForever(dance)
     
     //SKA Button
-    button = SKAButtonSprite(color: UIColor.greenColor(), size: CGSize(width: 126, height: 112))
+    //This also sets the .Normal texture as the stand and clear color
+    button = SKAButtonSprite(texture: self.atlas.textureNamed("ska-stand"), color: UIColor.clearColor(), size: CGSize(width: 126, height: 112))
     addChild(button)
-    
+        
     button.addTarget(self, selector: "touchUpInside:", forControlEvents: .TouchUpInside)
     button.addTarget(self, selector: "touchUpOutside:", forControlEvents: .TouchUpOutside)
     button.addTarget(self, selector: "dragOutside:", forControlEvents: .DragOutside)
@@ -66,8 +67,7 @@ class ButtonGameScene: SKScene {
     button.addTarget(self, selector: "dragEnter:", forControlEvents: .DragEnter)
     button.addTarget(self, selector: "dragExit:", forControlEvents: .DragExit)
     button.addTarget(self, selector: "touchDown:", forControlEvents: .TouchDown)
-    
-    button.setTexture(self.atlas.textureNamed("ska-stand"), forState: .Normal)
+
     button.setTexture(self.atlas.textureNamed("ska-pressed"), forState: .Highlighted)
     button.setTexture(self.atlas.textureNamed("ska-disabled"), forState: .Disabled)
     button.position = CGPoint(x: view.center.x, y: 200)

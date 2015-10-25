@@ -107,7 +107,19 @@ class SKAButtonSprite : SKAControlSprite {
     childNode = SKSpriteNode(texture: nil, color: color, size: size)
     touchTarget = size
     super.init(texture: texture, color: color, size: size)
+    
+    ///Set the default color and texture for Normal State
+    setColor(color, forState: .Normal)
+    setTexture(texture, forState: .Normal)
     self.addChild(childNode)
+  }
+  
+  /**
+   Use this method for initing with normal Map textures, SKSpriteNode's version will not persist the .Normal Textures correctly
+   */
+  convenience init(texture: SKTexture?, normalMap: SKTexture?) {
+    self.init(texture: texture, color: UIColor.clearColor(), size: texture?.size() ?? CGSize())
+    setNormalTexture(normalMap, forState: .Normal)
   }
   
   required init?(coder aDecoder: NSCoder) {
