@@ -166,8 +166,8 @@ class SKAControlSprite : SKSpriteNode {
   }
   
   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    if let touch = touches.first as UITouch?, scene = scene where enabled {
-      let currentLocation = (touch.locationInNode(scene))
+    if let touch = touches.first as UITouch?, parent = parent where enabled {
+      let currentLocation = (touch.locationInNode(parent))
       
       if lastEvent == .DragInside && !containsPoint(currentLocation) {
         //Touch Moved Outside Node
@@ -195,8 +195,8 @@ class SKAControlSprite : SKSpriteNode {
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
     lastEvent = .None
-    if let touch = touches.first as UITouch?, scene = scene where enabled {
-      if containsPoint(touch.locationInNode(scene)) {
+    if let touch = touches.first as UITouch?, parent = parent where enabled {
+      if containsPoint(touch.locationInNode(parent)) {
         performSelectorsForEvent(.TouchUpInside)
       } else {
         performSelectorsForEvent(.TouchUpOutside)
