@@ -26,14 +26,16 @@
 import Foundation
 import SpriteKit
 
-/// SKAControlState Possible states for the SKAButton
-/// - Note: Normal - No States are active on the button
-///
-/// Highlighted - Button is being touched
-///
-/// Selected - Button in selected state
-///
-/// Disabled - Button in disabled state, will ignore SKAControlEvents
+/**
+ SKAControlState Possible states for the SKAButton
+ - Note: Normal - No States are active on the button
+ 
+ Highlighted - Button is being touched
+ 
+ Selected - Button in selected state
+ 
+ Disabled - Button in disabled state, will ignore SKAControlEvents
+ */
 struct SKAControlState: OptionSetType, Hashable {
   let rawValue: Int
   let key: String
@@ -54,14 +56,15 @@ struct SKAControlState: OptionSetType, Hashable {
   }
 }
 
-/// Insets for the texture/color of the node
-///
-/// - Note: Inset direction will move the texture/color towards that edge at the given amount.
-///
-/// - SKButtonEdgeInsets(top: 10, right: 0, bottom: 0, left: 0)
-///   Top will move the texture/color towards the top
-/// - SKButtonEdgeInsets(top: 10, right: 0, bottom: 10, left: 0)
-///   Top and Bottom will cancel each other out
+/**
+ Insets for the texture/color of the node
+ - Note: Inset direction will move the texture/color towards that edge at the given amount.
+ 
+ - SKButtonEdgeInsets(top: 10, right: 0, bottom: 0, left: 0)
+ Top will move the texture/color towards the top
+ - SKButtonEdgeInsets(top: 10, right: 0, bottom: 10, left: 0)
+ Top and Bottom will cancel each other out
+ */
 struct SKButtonEdgeInsets {
   let top:CGFloat
   let right:CGFloat
@@ -83,8 +86,10 @@ struct SKButtonEdgeInsets {
   }
 }
 
-/// SKSpriteNode set up to mimic the utility of UIButton
-/// - Note: Supports Texture per state, normal Texture per state, and color per state
+/**
+ SKSpriteNode set up to mimic the utility of UIButton
+ - Note: Supports Texture per state, normal Texture per state, and color per state
+ */
 class SKAButtonSprite : SKAControlSprite {
   private var textures = [SKAControlState: SKTexture]()
   private var normalTextures = [SKAControlState: SKTexture]()
@@ -112,11 +117,13 @@ class SKAButtonSprite : SKAControlSprite {
     self.addChild(childNode)
   }
   
-  /// Update the button based on the state of the button. Since the button can hold more than one state at a time,
-  /// determine the most important state and display the correct texture/color
-  /// - Note: Disabled > Highlighted > Selected > Normal
-  /// - Warning: SKActions will override setting the textures
-  /// - Returns: void
+  /**
+   Update the button based on the state of the button. Since the button can hold more than one state at a time,
+   determine the most important state and display the correct texture/color
+   - Note: Disabled > Highlighted > Selected > Normal
+   - Warning: SKActions can override setting the textures
+   - Returns: void
+   */
   override func updateControl() {
     var newNormalTexture:SKTexture?
     var newTexture:SKTexture?
@@ -180,19 +187,23 @@ class SKAButtonSprite : SKAControlSprite {
   
   // MARK: - Control States
   
-  /// Sets the node's background color for the specified control state
-  /// - Parameter color: The specified color
-  /// - Parameter state: The specified control state to trigger the color change
-  /// - Returns: void
+  /**
+  Sets the node's background color for the specified control state
+  - Parameter color: The specified color
+  - Parameter state: The specified control state to trigger the color change
+  - Returns: void
+  */
   func setColor(color:SKColor, forState state:SKAControlState) {
     colors[state] = color
     updateControl()
   }
   
-  /// Sets the node's texture for the specified control state
-  /// - Parameter texture: The specified texture, if nil it clears the texture for the control state
-  /// - Parameter state: The specified control state to trigger the texture change
-  /// - Returns: void
+  /**
+   Sets the node's texture for the specified control state
+   - Parameter texture: The specified texture, if nil it clears the texture for the control state
+   - Parameter state: The specified control state to trigger the texture change
+   - Returns: void
+   */
   func setTexture(texture:SKTexture?, forState state:SKAControlState) {
     if let texture = texture {
       textures[state] = texture
@@ -203,10 +214,12 @@ class SKAButtonSprite : SKAControlSprite {
     updateControl()
   }
   
-  /// Sets the node's normal texture for the specified control state
-  /// - Parameter texture: The specified texture, if nil it clears the texture for the control state
-  /// - Parameter state: The specified control state to trigger the normal texture change
-  /// - Returns: void
+  /**
+   Sets the node's normal texture for the specified control state
+   - Parameter texture: The specified texture, if nil it clears the texture for the control state
+   - Parameter state: The specified control state to trigger the normal texture change
+   - Returns: void
+   */
   func setNormalTexture(texture:SKTexture?, forState state:SKAControlState) {
     if let texture = texture {
       normalTextures[state] = texture
@@ -220,39 +233,45 @@ class SKAButtonSprite : SKAControlSprite {
   /// Private variable to tell us when to update the button size or the child size
   private var updatingTargetSize = false
   
-  /// Insets for the texture/color of the node
-  ///
-  /// - Note: Inset direction will move the texture/color towards that edge at the given amount.
-  ///
-  /// - SKButtonEdgeInsets(top: 10, right: 0, bottom: 0, left: 0)
-  ///   Top will move the texture/color towards the top
-  /// - SKButtonEdgeInsets(top: 10, right: 0, bottom: 10, left: 0)
-  ///   Top and Bottom will cancel each other out
+  /**
+   Insets for the texture/color of the node
+   
+   - Note: Inset direction will move the texture/color towards that edge at the given amount.
+   
+   - SKButtonEdgeInsets(top: 10, right: 0, bottom: 0, left: 0)
+   Top will move the texture/color towards the top
+   - SKButtonEdgeInsets(top: 10, right: 0, bottom: 10, left: 0)
+   Top and Bottom will cancel each other out
+   */
   var insets = SKButtonEdgeInsets() {
     didSet{
       childNode.position = CGPoint(x: -insets.left + insets.right, y: -insets.bottom + insets.top)
     }
   }
   
-  /// Sets the touchable area for the button
-  /// - Parameter size: The size of the touchable area
-  /// - Returns: void
+  /**
+   Sets the touchable area for the button
+   - Parameter size: The size of the touchable area
+   - Returns: void
+   */
   func setButtonTargetSize(size:CGSize) {
     updatingTargetSize = true
     self.size = size
   }
   
-  /// Sets the touchable area for the button
-  /// - Parameter size: The size of the touchable area
-  /// - Parameter insets: The edge insets for the texture/color of the node
-  /// - Returns: void
-  /// - Note: Inset direction will move the texture/color towards that edge at the given amount.
+  /**
+   Sets the touchable area for the button
+   - Parameter size: The size of the touchable area
+   - Parameter insets: The edge insets for the texture/color of the node
+   - Returns: void
+   - Note: Inset direction will move the texture/color towards that edge at the given amount.
+   */
   func setButtonTargetSize(size:CGSize, insets:SKButtonEdgeInsets) {
     self.insets = insets
     self.setButtonTargetSize(size)
   }
   
-  /// MARK: Override basic functions and pass them to our child node, this leaves the button as a colorless touchable area
+  // MARK: Override basic functions and pass them to our child node
   
   override func actionForKey(key: String) -> SKAction? {
     return childNode.actionForKey(key)
