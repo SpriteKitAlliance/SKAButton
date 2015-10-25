@@ -1,13 +1,26 @@
 #SKAToolKit - SKAButton
+
 SKAButton is a simple button class for Sprite Kit that mimics the usefulness of UIButton. SKAButton is in the SKAToolKit family created by the Sprite Kit Alliance to be used with Apples Sprite Kit framework.  
 
 The Sprite Kit Alliance is happy to provide the SKAButton and SKAToolKit free of charge without any warranty or guarantee (see license below for more info). If there is a feature missing or you would like added please email us at join@spritekitalliance.com
 
+[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/SKAButton.svg)](https:img.shields.io/cocoapods/v/SKAButton.svg)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Platform](https://img.shields.io/cocoapods/p/SKAButton.svg)](http://cocoadocs.org/docsets/SKAButton)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SpriteKitAlliance/SKAButton/blob/master/LICENSE)
+[![Twitter](https://img.shields.io/badge/twitter-@SKADevs-55ACEE.svg)](http://twitter.com/SKADevs)
+
 ##SKAToolKit Install Instructions
 
 ###Using Cocoapods
-pod 'SKAButton'
-    
+```ogdl
+pod 'SKAButton''~> 1.0'
+```
+
+###Using Carthage
+```ogdl
+github "SpriteKitAlliance/SKAButton" ~> 1.0
+```
 ##Useful Methods
     //Add Targets to the button
     button.addTarget(self, selector: "buttonDoneWasTouched:", forControlEvents: .TouchUpInside)
@@ -22,7 +35,7 @@ pod 'SKAButton'
 A SKAButton can hold more than one state, but will show them in order of importance
 Disabled > Highlighted > Selected > Normal
 
-SKActions added to the button will override the texture for the state. In the example clicking the SKA button, but then disabling it will not show the disabled state, but will keep showing the SKAction until it is removed.
+SKActions added to the button can override the texture for the state. In the example clicking the SKA button, but then disabling it will not show the disabled state, but will keep showing the SKAction until it is removed.
         
 ##Contact Info
 If you would like to get in contact with the SKA, email us at join@spritekitalliance.com
