@@ -46,6 +46,7 @@ class ButtonGameScene: SKScene {
     disableButton.position = CGPoint(x: view.center.x, y: UIScreen.mainScreen().bounds.height - 100)
     disableButton.addTarget(self, selector: "disableSKA:", forControlEvents: .TouchUpInside)
     disableButton.setButtonTargetSize(CGSize(width: 300, height: 60))
+    disableButton.setAdjustsSpriteOnHighlight()
     
     addChild(disableButton)
     
@@ -71,6 +72,8 @@ class ButtonGameScene: SKScene {
     button.setTexture(self.atlas.textureNamed("ska-pressed"), forState: .Highlighted)
     button.setTexture(self.atlas.textureNamed("ska-disabled"), forState: .Disabled)
     button.position = CGPoint(x: view.center.x, y: 200)
+    
+    button.setAdjustsSpriteOnDisable()
   }
   
   func touchUpInside(sender:AnyObject) {

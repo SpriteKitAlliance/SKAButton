@@ -72,10 +72,10 @@ struct SKButtonEdgeInsets {
   let left:CGFloat
   
   init() {
-    top = 0
-    right = 0
-    bottom = 0
-    left = 0
+    top = 0.0
+    right = 0.0
+    bottom = 0.0
+    left = 0.0
   }
   
   init(top:CGFloat, right:CGFloat, bottom:CGFloat, left:CGFloat) {
@@ -94,6 +94,7 @@ class SKAButtonSprite : SKAControlSprite {
   private var textures = [SKAControlState: SKTexture]()
   private var normalTextures = [SKAControlState: SKTexture]()
   private var colors = [SKAControlState: SKColor]()
+  private var colorBlendFactors = [SKAControlState: CGFloat]()
   private var backgroundColor = SKColor.clearColor()
   private var childNode: SKSpriteNode //Child node to act as our real node, the child node gets all of the updates the normal node would, and we keep the actual node as a clickable area only.
   
@@ -111,6 +112,7 @@ class SKAButtonSprite : SKAControlSprite {
     ///Set the default color and texture for Normal State
     setColor(color, forState: .Normal)
     setTexture(texture, forState: .Normal)
+    setColorBlendFactor(0.0, forState: .Normal)
     self.addChild(childNode)
   }
   
@@ -140,6 +142,7 @@ class SKAButtonSprite : SKAControlSprite {
     var newNormalTexture:SKTexture?
     var newTexture:SKTexture?
     var newColor = childNode.color
+    var newColorBlendFactor = colorBlendFactors[.Normal] ?? colorBlendFactor
     
     if controlState.contains(.Disabled) {
       if let disabledNormal = normalTextures[.Disabled] {
@@ -153,6 +156,10 @@ class SKAButtonSprite : SKAControlSprite {
       if let disabledColor = colors[.Disabled] {
         newColor = disabledColor
       }
+      
+      if let colorBlend = colorBlendFactors[.Disabled] {
+        newColorBlendFactor = colorBlend
+      }
     } else if controlState.contains(.Highlighted){
       if let highlightedNormal = normalTextures[.Highlighted] {
         newNormalTexture = highlightedNormal
@@ -164,6 +171,10 @@ class SKAButtonSprite : SKAControlSprite {
       
       if let highlightedColor = colors[.Highlighted] {
         newColor = highlightedColor
+      }
+      
+      if let colorBlend = colorBlendFactors[.Highlighted] {
+        newColorBlendFactor = colorBlend
       }
     } else if controlState.contains(.Selected) {
       if let selectedNormal = normalTextures[.Selected] {
@@ -177,10 +188,22 @@ class SKAButtonSprite : SKAControlSprite {
       if let selectedColor = colors[.Selected] {
         newColor = selectedColor
       }
-    }  else if let normalColor = colors[.Normal] {
-      newColor = normalColor
+      
+      if let colorBlend = colorBlendFactors[.Selected] {
+        newColorBlendFactor = colorBlend
+      }
+    }  else {
+      //If .Normal
+      if let normalColor = colors[.Normal] {
+        newColor = normalColor
+      }
+      
+      if let colorBlend = colorBlendFactors[.Normal] {
+        newColorBlendFactor = colorBlend
+      }
     }
     
+    //Don't need to check if .Normal for textures, if nil set to .Normal textures
     if newNormalTexture == nil {
       newNormalTexture = normalTextures[.Normal]
     }
@@ -188,9 +211,11 @@ class SKAButtonSprite : SKAControlSprite {
     if newTexture == nil {
       newTexture = textures[.Normal]
     }
+    
     childNode.normalTexture = newNormalTexture
     childNode.texture = newTexture
     childNode.color = newColor
+    childNode.colorBlendFactor = newColorBlendFactor
     
     if restoreSizeAfterAction {
       childNode.size = childNode.size
@@ -205,8 +230,37 @@ class SKAButtonSprite : SKAControlSprite {
   - Parameter state: The specified control state to trigger the color change
   - Returns: void
   */
-  func setColor(color:SKColor, forState state:SKAControlState) {
-    colors[state] = color
+  func setColor(color:SKColor?, forState state:SKAControlState) {
+    if let color = color {
+      colors[state] = color
+    } else {
+      for controlState in SKAControlState.AllOptions {
+        if colors.keys.contains(controlState) {
+          colors.removeValueForKey(controlState)
+        }
+      }
+    }
+    
+    updateControl()
+  }
+  
+  /**
+   Sets the node's colorBlendFactor for the specified control state
+   - Parameter colorBlend: The specified colorBlendFactor
+   - Parameter state: The specefied control state to trigger the color change
+   - Returns: void
+   */
+  func setColorBlendFactor(colorBlend:CGFloat?, forState state:SKAControlState){
+    if let colorBlend = colorBlend {
+      colorBlendFactors[state] = colorBlend
+    } else {
+      for controlState in SKAControlState.AllOptions {
+        if colorBlendFactors.keys.contains(controlState) {
+          colorBlendFactors.removeValueForKey(controlState)
+        }
+      }
+    }
+    
     updateControl()
   }
   
@@ -220,7 +274,11 @@ class SKAButtonSprite : SKAControlSprite {
     if let texture = texture {
       textures[state] = texture
     } else {
-      textures.removeValueForKey(state)
+      for controlState in SKAControlState.AllOptions {
+        if textures.keys.contains(controlState) {
+          textures.removeValueForKey(controlState)
+        }
+      }
     }
     
     updateControl()
@@ -236,7 +294,11 @@ class SKAButtonSprite : SKAControlSprite {
     if let texture = texture {
       normalTextures[state] = texture
     } else {
-      normalTextures.removeValueForKey(state)
+      for controlState in SKAControlState.AllOptions {
+        if normalTextures.keys.contains(controlState) {
+          normalTextures.removeValueForKey(controlState)
+        }
+      }
     }
     
     updateControl()
@@ -281,6 +343,30 @@ class SKAButtonSprite : SKAControlSprite {
   func setButtonTargetSize(size:CGSize, insets:SKButtonEdgeInsets) {
     self.insets = insets
     self.setButtonTargetSize(size)
+  }
+  
+  // MARK: Shortcuts
+  
+  /**
+  Shortcut to handle button highlighting
+  
+  Sets the colorBlendFactor to 0.2 for the Hightlighted State
+  Sets the color to a slightly lighter version of the Normal State color for the Highlighted State
+  */
+  func setAdjustsSpriteOnHighlight() {
+    setColorBlendFactor(0.2, forState: .Highlighted)
+    setColor(lightenColor(colors[.Normal] ?? color), forState: .Highlighted)
+  }
+  
+  /**
+   Shortcut to handle button disabling
+   
+   Sets the colorBlendFactor to 0.2 for the Disabled State
+   Sets the color to a slightly darker version of the Normal State color for the Disabled State
+   */
+  func setAdjustsSpriteOnDisable() {
+    setColorBlendFactor(0.2, forState: .Disabled)
+    setColor(darkenColor(colors[.Normal] ?? color), forState: .Disabled)
   }
   
   // MARK: Override basic functions and pass them to our child node
@@ -343,6 +429,16 @@ class SKAButtonSprite : SKAControlSprite {
     }
   }
   
+  override var colorBlendFactor: CGFloat {
+    get {
+      return childNode.colorBlendFactor
+    }
+    set {
+      super.colorBlendFactor = 0.0
+      childNode.colorBlendFactor = newValue
+    }
+  }
+  
   override var size: CGSize {
     willSet {
       if updatingTargetSize {
@@ -354,6 +450,64 @@ class SKAButtonSprite : SKAControlSprite {
       } else {
         childNode.size = newValue
       }
+    }
+  }
+  
+  // Mark: Color Functions
+  
+  /**
+  Takes a color and slightly darkens it (if it can)
+  - Parameter color: Color to darken
+  - Returns: UIColor - Darkened Color
+  */
+  private func darkenColor(color: UIColor) -> UIColor {
+    var redComponent: CGFloat = 0.0
+    var blueComponent: CGFloat = 0.0
+    var greenComponent: CGFloat = 0.0
+    var alphaComponent: CGFloat = 0.0
+    
+    if color.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha: &alphaComponent) {
+      let defaultValue: CGFloat = 0.0
+      
+      redComponent = max(redComponent - 0.2, defaultValue)
+      blueComponent = max(blueComponent - 0.2, defaultValue)
+      greenComponent = max(greenComponent - 0.2, defaultValue)
+      alphaComponent = max(alphaComponent - 0.2, defaultValue)
+      
+      return UIColor(colorLiteralRed: Float(redComponent),
+        green: Float(greenComponent),
+        blue: Float(blueComponent),
+        alpha: Float(alphaComponent))
+    } else {
+      return color
+    }
+  }
+  
+  /**
+   Takes a color and slightly lightens it (if it can)
+   - Parameter color: Color to darken
+   - Returns: UIColor - Lightened Color
+   */
+  private func lightenColor(color: UIColor) -> UIColor {
+    var redComponent: CGFloat = 1.0
+    var blueComponent: CGFloat = 1.0
+    var greenComponent: CGFloat = 1.0
+    var alphaComponent: CGFloat = 1.0
+    
+    if color.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha: &alphaComponent) {
+      let defaultValue: CGFloat = 1.0
+      
+      redComponent = min(redComponent + 0.2, defaultValue)
+      blueComponent = min(blueComponent + 0.2, defaultValue)
+      greenComponent = min(greenComponent + 0.2, defaultValue)
+      alphaComponent = min(alphaComponent + 0.2, defaultValue)
+      
+      return UIColor(colorLiteralRed: Float(redComponent),
+        green: Float(greenComponent),
+        blue: Float(blueComponent),
+        alpha: Float(alphaComponent))
+    } else {
+      return color
     }
   }
   
