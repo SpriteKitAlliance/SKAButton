@@ -44,7 +44,10 @@ class ButtonGameScene: SKScene {
     disableButton.setTexture(self.atlas.textureNamed("disable"), forState: .Normal)
     disableButton.setTexture(self.atlas.textureNamed("enabled"), forState: .Selected)
     disableButton.position = CGPoint(x: view.center.x, y: UIScreen.mainScreen().bounds.height - 100)
-    disableButton.addTarget(self, selector: "disableSKA:", forControlEvents: .TouchUpInside)
+    disableButton.addTarget(self,
+                            selector: #selector(ButtonGameScene.disableSKA(_:)),
+                            forControlEvents: .TouchUpInside)
+
     disableButton.setButtonTargetSize(CGSize(width: 300, height: 60))
     disableButton.setAdjustsSpriteOnHighlight()
     
@@ -61,13 +64,13 @@ class ButtonGameScene: SKScene {
     button = SKAButtonSprite(texture: self.atlas.textureNamed("ska-stand"), color: UIColor.clearColor(), size: CGSize(width: 126, height: 112))
     addChild(button)
         
-    button.addTarget(self, selector: "touchUpInside:", forControlEvents: .TouchUpInside)
-    button.addTarget(self, selector: "touchUpOutside:", forControlEvents: .TouchUpOutside)
-    button.addTarget(self, selector: "dragOutside:", forControlEvents: .DragOutside)
-    button.addTarget(self, selector: "dragInside:", forControlEvents: .DragInside)
-    button.addTarget(self, selector: "dragEnter:", forControlEvents: .DragEnter)
-    button.addTarget(self, selector: "dragExit:", forControlEvents: .DragExit)
-    button.addTarget(self, selector: "touchDown:", forControlEvents: .TouchDown)
+    button.addTarget(self, selector: #selector(ButtonGameScene.touchUpInside(_:)), forControlEvents: .TouchUpInside)
+    button.addTarget(self, selector: #selector(ButtonGameScene.touchUpOutside(_:)), forControlEvents: .TouchUpOutside)
+    button.addTarget(self, selector: #selector(ButtonGameScene.dragOutside(_:)), forControlEvents: .DragOutside)
+    button.addTarget(self, selector: #selector(ButtonGameScene.dragInside(_:)), forControlEvents: .DragInside)
+    button.addTarget(self, selector: #selector(ButtonGameScene.dragEnter(_:)), forControlEvents: .DragEnter)
+    button.addTarget(self, selector: #selector(ButtonGameScene.dragExit(_:)), forControlEvents: .DragExit)
+    button.addTarget(self, selector: #selector(ButtonGameScene.touchDown(_:)), forControlEvents: .TouchDown)
 
     button.setTexture(self.atlas.textureNamed("ska-pressed"), forState: .Highlighted)
     button.setTexture(self.atlas.textureNamed("ska-disabled"), forState: .Disabled)

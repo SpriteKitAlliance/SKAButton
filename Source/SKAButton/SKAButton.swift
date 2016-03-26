@@ -1,6 +1,6 @@
 //
 //  SKAButton.swift
-//  SKAToolKit
+//  SKAButton
 //
 //  Copyright (c) 2015 Sprite Kit Alliance
 //
@@ -27,76 +27,16 @@ import Foundation
 import SpriteKit
 
 /**
- SKAControlState Possible states for the SKAButton
- - Note: Normal - No States are active on the button
- 
- Highlighted - Button is being touched
- 
- Selected - Button in selected state
- 
- Disabled - Button in disabled state, will ignore SKAControlEvents
- */
-struct SKAControlState: OptionSetType, Hashable {
-  let rawValue: Int
-  let key: String
-  init(rawValue: Int) {
-    self.rawValue = rawValue
-    self.key = "\(rawValue)"
-  }
-  
-  static var Normal:       SKAControlState { return SKAControlState(rawValue: 0 << 0) }
-  static var Highlighted:  SKAControlState { return SKAControlState(rawValue: 1 << 0) }
-  static var Selected:     SKAControlState { return SKAControlState(rawValue: 1 << 1) }
-  static var Disabled:     SKAControlState { return SKAControlState(rawValue: 1 << 2) }
-  static var AllOptions: [SKAControlState] {
-    return [.Normal, .Highlighted, .Selected, .Disabled]
-  }
-  var hashValue: Int {
-    return rawValue.hashValue
-  }
-}
-
-/**
- Insets for the texture/color of the node
- - Note: Inset direction will move the texture/color towards that edge at the given amount.
- 
- - SKButtonEdgeInsets(top: 10, right: 0, bottom: 0, left: 0)
- Top will move the texture/color towards the top
- - SKButtonEdgeInsets(top: 10, right: 0, bottom: 10, left: 0)
- Top and Bottom will cancel each other out
- */
-struct SKButtonEdgeInsets {
-  let top:CGFloat
-  let right:CGFloat
-  let bottom:CGFloat
-  let left:CGFloat
-  
-  init() {
-    top = 0.0
-    right = 0.0
-    bottom = 0.0
-    left = 0.0
-  }
-  
-  init(top:CGFloat, right:CGFloat, bottom:CGFloat, left:CGFloat) {
-    self.top = top
-    self.right = right
-    self.bottom = bottom
-    self.left = left
-  }
-}
-
-/**
  SKSpriteNode set up to mimic the utility of UIButton
  - Note: Supports Texture per state, normal Texture per state, and color per state
  */
 class SKAButtonSprite : SKAControlSprite {
-  private var textures = [SKAControlState: SKTexture]()
-  private var normalTextures = [SKAControlState: SKTexture]()
-  private var colors = [SKAControlState: SKColor]()
-  private var colorBlendFactors = [SKAControlState: CGFloat]()
-  private var backgroundColor = SKColor.clearColor()
-  private var childNode: SKSpriteNode //Child node to act as our real node, the child node gets all of the updates the normal node would, and we keep the actual node as a clickable area only.
+  internal var textures = [SKAControlState: SKTexture]()
+  internal var normalTextures = [SKAControlState: SKTexture]()
+  internal var colors = [SKAControlState: SKColor]()
+  internal var colorBlendFactors = [SKAControlState: CGFloat]()
+  internal var backgroundColor = SKColor.clearColor()
+  internal var childNode: SKSpriteNode //Child node to act as our real node, the child node gets all of the updates the normal node would, and we keep the actual node as a clickable area only.
   
   /// Will restore the size of the texture node to the button size every time the button is updated
   var restoreSizeAfterAction = true
@@ -221,89 +161,7 @@ class SKAButtonSprite : SKAControlSprite {
       childNode.size = childNode.size
     }
   }
-  
-  // MARK: - Control States
-  
-  /**
-  Sets the node's background color for the specified control state
-  - Parameter color: The specified color
-  - Parameter state: The specified control state to trigger the color change
-  - Returns: void
-  */
-  func setColor(color:SKColor?, forState state:SKAControlState) {
-    if let color = color {
-      colors[state] = color
-    } else {
-      for controlState in SKAControlState.AllOptions {
-        if colors.keys.contains(controlState) {
-          colors.removeValueForKey(controlState)
-        }
-      }
-    }
-    
-    updateControl()
-  }
-  
-  /**
-   Sets the node's colorBlendFactor for the specified control state
-   - Parameter colorBlend: The specified colorBlendFactor
-   - Parameter state: The specefied control state to trigger the color change
-   - Returns: void
-   */
-  func setColorBlendFactor(colorBlend:CGFloat?, forState state:SKAControlState){
-    if let colorBlend = colorBlend {
-      colorBlendFactors[state] = colorBlend
-    } else {
-      for controlState in SKAControlState.AllOptions {
-        if colorBlendFactors.keys.contains(controlState) {
-          colorBlendFactors.removeValueForKey(controlState)
-        }
-      }
-    }
-    
-    updateControl()
-  }
-  
-  /**
-   Sets the node's texture for the specified control state
-   - Parameter texture: The specified texture, if nil it clears the texture for the control state
-   - Parameter state: The specified control state to trigger the texture change
-   - Returns: void
-   */
-  func setTexture(texture:SKTexture?, forState state:SKAControlState) {
-    if let texture = texture {
-      textures[state] = texture
-    } else {
-      for controlState in SKAControlState.AllOptions {
-        if textures.keys.contains(controlState) {
-          textures.removeValueForKey(controlState)
-        }
-      }
-    }
-    
-    updateControl()
-  }
-  
-  /**
-   Sets the node's normal texture for the specified control state
-   - Parameter texture: The specified texture, if nil it clears the texture for the control state
-   - Parameter state: The specified control state to trigger the normal texture change
-   - Returns: void
-   */
-  func setNormalTexture(texture:SKTexture?, forState state:SKAControlState) {
-    if let texture = texture {
-      normalTextures[state] = texture
-    } else {
-      for controlState in SKAControlState.AllOptions {
-        if normalTextures.keys.contains(controlState) {
-          normalTextures.removeValueForKey(controlState)
-        }
-      }
-    }
-    
-    updateControl()
-  }
-  
+
   /// Private variable to tell us when to update the button size or the child size
   private var updatingTargetSize = false
   
@@ -452,65 +310,7 @@ class SKAButtonSprite : SKAControlSprite {
       }
     }
   }
-  
-  // Mark: Color Functions
-  
-  /**
-  Takes a color and slightly darkens it (if it can)
-  - Parameter color: Color to darken
-  - Returns: UIColor - Darkened Color
-  */
-  private func darkenColor(color: UIColor) -> UIColor {
-    var redComponent: CGFloat = 0.0
-    var blueComponent: CGFloat = 0.0
-    var greenComponent: CGFloat = 0.0
-    var alphaComponent: CGFloat = 0.0
     
-    if color.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha: &alphaComponent) {
-      let defaultValue: CGFloat = 0.0
-      
-      redComponent = max(redComponent - 0.2, defaultValue)
-      blueComponent = max(blueComponent - 0.2, defaultValue)
-      greenComponent = max(greenComponent - 0.2, defaultValue)
-      alphaComponent = max(alphaComponent - 0.2, defaultValue)
-      
-      return UIColor(colorLiteralRed: Float(redComponent),
-        green: Float(greenComponent),
-        blue: Float(blueComponent),
-        alpha: Float(alphaComponent))
-    } else {
-      return color
-    }
-  }
-  
-  /**
-   Takes a color and slightly lightens it (if it can)
-   - Parameter color: Color to darken
-   - Returns: UIColor - Lightened Color
-   */
-  private func lightenColor(color: UIColor) -> UIColor {
-    var redComponent: CGFloat = 1.0
-    var blueComponent: CGFloat = 1.0
-    var greenComponent: CGFloat = 1.0
-    var alphaComponent: CGFloat = 1.0
-    
-    if color.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha: &alphaComponent) {
-      let defaultValue: CGFloat = 1.0
-      
-      redComponent = min(redComponent + 0.2, defaultValue)
-      blueComponent = min(blueComponent + 0.2, defaultValue)
-      greenComponent = min(greenComponent + 0.2, defaultValue)
-      alphaComponent = min(alphaComponent + 0.2, defaultValue)
-      
-      return UIColor(colorLiteralRed: Float(redComponent),
-        green: Float(greenComponent),
-        blue: Float(blueComponent),
-        alpha: Float(alphaComponent))
-    } else {
-      return color
-    }
-  }
-  
   /// Remove unneeded textures
   deinit {
     textures.removeAll()

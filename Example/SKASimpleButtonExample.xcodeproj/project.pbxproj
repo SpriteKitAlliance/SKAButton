@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB080E341CA6DE0500502E89 /* SKAControl+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB080E331CA6DE0500502E89 /* SKAControl+Events.swift */; };
+		BB080E361CA6DF4900502E89 /* SKAControl+Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB080E351CA6DF4900502E89 /* SKAControl+Touch.swift */; };
+		BB080E381CA6E02300502E89 /* SKAControlEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB080E371CA6E02300502E89 /* SKAControlEvent.swift */; };
+		BB080E3A1CA6E04700502E89 /* SKASelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB080E391CA6E04700502E89 /* SKASelector.swift */; };
+		BB080E3C1CA6E0B800502E89 /* SKAControlState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB080E3B1CA6E0B800502E89 /* SKAControlState.swift */; };
+		BB080E3E1CA6E0EB00502E89 /* SKButtonEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB080E3D1CA6E0EB00502E89 /* SKButtonEdgeInsets.swift */; };
+		BB080E401CA6E15C00502E89 /* SKAButton+ControlStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB080E3F1CA6E15C00502E89 /* SKAButton+ControlStates.swift */; };
+		BB080E421CA6E25400502E89 /* SKAButton+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB080E411CA6E25400502E89 /* SKAButton+Color.swift */; };
 		BB22A83E1B94B2460064B89E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22A83D1B94B2460064B89E /* AppDelegate.swift */; };
 		BB22A8451B94B2460064B89E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB22A8441B94B2460064B89E /* Assets.xcassets */; };
 		BB22A8481B94B2460064B89E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB22A8461B94B2460064B89E /* LaunchScreen.storyboard */; };
@@ -29,6 +37,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB080E331CA6DE0500502E89 /* SKAControl+Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKAControl+Events.swift"; path = "../../Source/SKAControl/SKAControl+Events.swift"; sourceTree = "<group>"; };
+		BB080E351CA6DF4900502E89 /* SKAControl+Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKAControl+Touch.swift"; path = "../../Source/SKAControl/SKAControl+Touch.swift"; sourceTree = "<group>"; };
+		BB080E371CA6E02300502E89 /* SKAControlEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAControlEvent.swift; path = ../../Source/SKAControl/SKAControlEvent.swift; sourceTree = "<group>"; };
+		BB080E391CA6E04700502E89 /* SKASelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKASelector.swift; path = ../../Source/SKAButton/SKASelector.swift; sourceTree = "<group>"; };
+		BB080E3B1CA6E0B800502E89 /* SKAControlState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAControlState.swift; path = ../../Source/SKAControl/SKAControlState.swift; sourceTree = "<group>"; };
+		BB080E3D1CA6E0EB00502E89 /* SKButtonEdgeInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKButtonEdgeInsets.swift; path = ../../Source/SKAButton/SKButtonEdgeInsets.swift; sourceTree = "<group>"; };
+		BB080E3F1CA6E15C00502E89 /* SKAButton+ControlStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKAButton+ControlStates.swift"; path = "../../Source/SKAButton/SKAButton+ControlStates.swift"; sourceTree = "<group>"; };
+		BB080E411CA6E25400502E89 /* SKAButton+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKAButton+Color.swift"; path = "../../Source/SKAButton/SKAButton+Color.swift"; sourceTree = "<group>"; };
 		BB22A83A1B94B2460064B89E /* SKASimpleButtonExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKASimpleButtonExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB22A83D1B94B2460064B89E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB22A8441B94B2460064B89E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -42,8 +58,8 @@
 		BB334D0C1B95DEF400C07C39 /* SKAButtonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButtonViewController.swift; path = Views/SKAButtonViewController.swift; sourceTree = "<group>"; };
 		BB334D101B95E0A800C07C39 /* ButtonGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonGameScene.swift; path = Scenes/ButtonGameScene.swift; sourceTree = "<group>"; };
 		BB6743801BA203C3008F1D11 /* Textures.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Textures.atlas; sourceTree = "<group>"; };
-		BBF98EFE1BC2FBEF002748DD /* SKAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButton.swift; path = ../../Source/SKAButton.swift; sourceTree = "<group>"; };
-		BBF98EFF1BC2FBEF002748DD /* SKAControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAControl.swift; path = ../../Source/SKAControl.swift; sourceTree = "<group>"; };
+		BBF98EFE1BC2FBEF002748DD /* SKAButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAButton.swift; path = ../../Source/SKAButton/SKAButton.swift; sourceTree = "<group>"; };
+		BBF98EFF1BC2FBEF002748DD /* SKAControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SKAControl.swift; path = ../../Source/SKAControl/SKAControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +80,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB080E431CA6E2C000502E89 /* SKAButton */ = {
+			isa = PBXGroup;
+			children = (
+				BBF98EFE1BC2FBEF002748DD /* SKAButton.swift */,
+				BB080E411CA6E25400502E89 /* SKAButton+Color.swift */,
+				BB080E3F1CA6E15C00502E89 /* SKAButton+ControlStates.swift */,
+				BB080E3D1CA6E0EB00502E89 /* SKButtonEdgeInsets.swift */,
+			);
+			name = SKAButton;
+			sourceTree = "<group>";
+		};
+		BB080E441CA6E2CE00502E89 /* SKAControl */ = {
+			isa = PBXGroup;
+			children = (
+				BBF98EFF1BC2FBEF002748DD /* SKAControl.swift */,
+				BB080E331CA6DE0500502E89 /* SKAControl+Events.swift */,
+				BB080E351CA6DF4900502E89 /* SKAControl+Touch.swift */,
+				BB080E371CA6E02300502E89 /* SKAControlEvent.swift */,
+			);
+			name = SKAControl;
+			sourceTree = "<group>";
+		};
 		BB22A8311B94B2460064B89E = {
 			isa = PBXGroup;
 			children = (
@@ -135,8 +173,10 @@
 		BBEC29E31B94B3A0000D9964 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				BBF98EFE1BC2FBEF002748DD /* SKAButton.swift */,
-				BBF98EFF1BC2FBEF002748DD /* SKAControl.swift */,
+				BB080E3B1CA6E0B800502E89 /* SKAControlState.swift */,
+				BB080E391CA6E04700502E89 /* SKASelector.swift */,
+				BB080E441CA6E2CE00502E89 /* SKAControl */,
+				BB080E431CA6E2C000502E89 /* SKAButton */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -242,11 +282,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB080E341CA6DE0500502E89 /* SKAControl+Events.swift in Sources */,
 				BB334D111B95E0A800C07C39 /* ButtonGameScene.swift in Sources */,
+				BB080E381CA6E02300502E89 /* SKAControlEvent.swift in Sources */,
+				BB080E3A1CA6E04700502E89 /* SKASelector.swift in Sources */,
+				BB080E3E1CA6E0EB00502E89 /* SKButtonEdgeInsets.swift in Sources */,
 				BBF98F011BC2FBEF002748DD /* SKAControl.swift in Sources */,
+				BB080E3C1CA6E0B800502E89 /* SKAControlState.swift in Sources */,
 				BBF98F001BC2FBEF002748DD /* SKAButton.swift in Sources */,
 				BB22A83E1B94B2460064B89E /* AppDelegate.swift in Sources */,
+				BB080E361CA6DF4900502E89 /* SKAControl+Touch.swift in Sources */,
 				BB334D0D1B95DEF400C07C39 /* SKAButtonViewController.swift in Sources */,
+				BB080E421CA6E25400502E89 /* SKAButton+Color.swift in Sources */,
+				BB080E401CA6E15C00502E89 /* SKAButton+ControlStates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
