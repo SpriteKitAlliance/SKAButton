@@ -34,7 +34,10 @@ extension SKAButtonSprite {
    Sets the color to a slightly lighter version of the Normal State color for the Highlighted State
    */
   func setAdjustsSpriteOnHighlight() {
+    setColorBlendFactor(0, forState: .Normal)
     setColorBlendFactor(0.2, forState: .Highlighted)
+    setColorBlendFactor(0, forState: .Selected)
+
     setColor(lightenColor(colors[.Normal] ?? color), forState: .Highlighted)
   }
 

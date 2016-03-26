@@ -78,6 +78,7 @@ class SKAButtonSprite : SKAControlSprite {
    */
   convenience init(texture: SKTexture?, normalMap: SKTexture?) {
     self.init(texture: texture, color: UIColor.clearColor(), size: texture?.size() ?? CGSize())
+    
     setNormalTexture(normalMap, forState: .Normal)
   }
   
@@ -101,7 +102,7 @@ class SKAButtonSprite : SKAControlSprite {
     var newNormalTexture:SKTexture?
     var newTexture:SKTexture?
     var newColor = childNode.color
-    var newColorBlendFactor = colorBlendFactors[.Normal] ?? colorBlendFactor
+    var newColorBlendFactor = colorBlendFactor
     
     if controlState.contains(.Disabled) {
       if let disabledNormal = normalTextures[.Disabled] {
@@ -160,22 +161,27 @@ class SKAButtonSprite : SKAControlSprite {
       if let colorBlend = colorBlendFactors[.Normal] {
         newColorBlendFactor = colorBlend
       }
+
+      if let texture = textures[.Normal] {
+        newTexture = texture
+      }
+
+      if let normalTexture = normalTextures[.Normal] {
+        newNormalTexture = normalTexture
+      }
     }
     
-    //Don't need to check if .Normal for textures, if nil set to .Normal textures
-    if newNormalTexture == nil {
-      newNormalTexture = normalTextures[.Normal]
+    if let textureToUse = newTexture {
+      childNode.texture = textureToUse
     }
-    
-    if newTexture == nil {
-      newTexture = textures[.Normal]
+
+    if let normalTextureToUse = newNormalTexture {
+      childNode.normalTexture = normalTextureToUse
     }
-    
-    childNode.normalTexture = newNormalTexture
-    childNode.texture = newTexture
+
     childNode.color = newColor
     childNode.colorBlendFactor = newColorBlendFactor
-    
+
     if restoreSizeAfterAction {
       childNode.size = childNode.size
     }
