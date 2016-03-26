@@ -222,30 +222,6 @@ class SKAButtonSprite : SKAControlSprite {
     self.setButtonTargetSize(size)
   }
   
-  // MARK: Shortcuts
-  
-  /**
-  Shortcut to handle button highlighting
-  
-  Sets the colorBlendFactor to 0.2 for the Hightlighted State
-  Sets the color to a slightly lighter version of the Normal State color for the Highlighted State
-  */
-  func setAdjustsSpriteOnHighlight() {
-    setColorBlendFactor(0.2, forState: .Highlighted)
-    setColor(lightenColor(colors[.Normal] ?? color), forState: .Highlighted)
-  }
-  
-  /**
-   Shortcut to handle button disabling
-   
-   Sets the colorBlendFactor to 0.2 for the Disabled State
-   Sets the color to a slightly darker version of the Normal State color for the Disabled State
-   */
-  func setAdjustsSpriteOnDisable() {
-    setColorBlendFactor(0.2, forState: .Disabled)
-    setColor(darkenColor(colors[.Normal] ?? color), forState: .Disabled)
-  }
-  
   // MARK: Override basic functions and pass them to our child node
   
   override func actionForKey(key: String) -> SKAction? {

@@ -28,6 +28,28 @@ import SpriteKit
 
 extension SKAButtonSprite {
   /**
+   Shortcut to handle button highlighting
+
+   Sets the colorBlendFactor to 0.2 for the Hightlighted State
+   Sets the color to a slightly lighter version of the Normal State color for the Highlighted State
+   */
+  func setAdjustsSpriteOnHighlight() {
+    setColorBlendFactor(0.2, forState: .Highlighted)
+    setColor(lightenColor(colors[.Normal] ?? color), forState: .Highlighted)
+  }
+
+  /**
+   Shortcut to handle button disabling
+
+   Sets the colorBlendFactor to 0.2 for the Disabled State
+   Sets the color to a slightly darker version of the Normal State color for the Disabled State
+   */
+  func setAdjustsSpriteOnDisable() {
+    setColorBlendFactor(0.2, forState: .Disabled)
+    setColor(darkenColor(colors[.Normal] ?? color), forState: .Disabled)
+  }
+
+  /**
    Takes a color and slightly darkens it (if it can)
    - Parameter color: Color to darken
    - Returns: UIColor - Darkened Color
