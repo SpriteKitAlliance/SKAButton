@@ -41,12 +41,29 @@ class SKAButtonSprite : SKAControlSprite {
   /// Will restore the size of the texture node to the button size every time the button is updated
   var restoreSizeAfterAction = true
   var touchTarget:CGSize
+
+  var darkenAmount:CGFloat = 0.2 {
+    didSet {
+      if darkenAmount < 0 {
+        darkenAmount = abs(darkenAmount)
+      }
+    }
+  }
+
+  var lightenAmount:CGFloat = 0.2 {
+    didSet {
+      if lightenAmount < 0 {
+        lightenAmount = abs(lightenAmount)
+      }
+    }
+  }
   
   // MARK: - Initializers
   
   override init(texture: SKTexture?, color: UIColor, size: CGSize) {
     childNode = SKSpriteNode(texture: nil, color: color, size: size)
     touchTarget = size
+
     super.init(texture: texture, color: color, size: size)
     
     ///Set the default color and texture for Normal State

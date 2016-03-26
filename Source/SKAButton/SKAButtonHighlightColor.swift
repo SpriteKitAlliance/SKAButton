@@ -41,10 +41,10 @@ extension SKAButtonSprite {
     if color.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha: &alphaComponent) {
       let defaultValue: CGFloat = 0.0
 
-      redComponent = max(redComponent - 0.2, defaultValue)
-      blueComponent = max(blueComponent - 0.2, defaultValue)
-      greenComponent = max(greenComponent - 0.2, defaultValue)
-      alphaComponent = max(alphaComponent - 0.2, defaultValue)
+      redComponent = max(redComponent - darkenAmount, defaultValue)
+      blueComponent = max(blueComponent - darkenAmount, defaultValue)
+      greenComponent = max(greenComponent - darkenAmount, defaultValue)
+      alphaComponent = max(alphaComponent - darkenAmount, defaultValue)
 
       return UIColor(colorLiteralRed: Float(redComponent),
                      green: Float(greenComponent),
@@ -69,10 +69,10 @@ extension SKAButtonSprite {
     if color.getRed(&redComponent, green: &greenComponent, blue: &blueComponent, alpha: &alphaComponent) {
       let defaultValue: CGFloat = 1.0
 
-      redComponent = min(redComponent + 0.2, defaultValue)
-      blueComponent = min(blueComponent + 0.2, defaultValue)
-      greenComponent = min(greenComponent + 0.2, defaultValue)
-      alphaComponent = min(alphaComponent + 0.2, defaultValue)
+      redComponent = min(redComponent + lightenAmount, defaultValue)
+      blueComponent = min(blueComponent + lightenAmount, defaultValue)
+      greenComponent = min(greenComponent + lightenAmount, defaultValue)
+      alphaComponent = min(alphaComponent + lightenAmount, defaultValue)
 
       return UIColor(colorLiteralRed: Float(redComponent),
                      green: Float(greenComponent),

@@ -26,8 +26,6 @@
 import Foundation
 
 extension SKAControlSprite {
-  // MARK: - Selector Events
-
   /**
    Add target for a SKAControlEvent. You may call this multiple times and you can specify multiple targets for any event.
    - Parameter target: Object the selecter will be called on
@@ -66,6 +64,7 @@ extension SKAControlSprite {
    */
   internal func performSelectorsForEvent(event:SKAControlEvent) {
     guard let selectors = selectors[event] else { return }
+    
     performSelectors(selectors)
   }
 

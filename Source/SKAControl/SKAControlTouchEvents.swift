@@ -84,6 +84,7 @@ extension SKAControlSprite {
 
   override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
     lastEvent = .None
+
     if let _ = touches?.first as UITouch? {
       performSelectorsForEvent(.TouchCancelled)
     }
