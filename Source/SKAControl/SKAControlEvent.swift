@@ -56,6 +56,7 @@ struct SKAControlEvent: OptionSetType, Hashable {
   static var DragEnter:      SKAControlEvent   { return SKAControlEvent(rawValue: 1 << 5) }
   static var DragExit:       SKAControlEvent   { return SKAControlEvent(rawValue: 1 << 6) }
   static var TouchCancelled: SKAControlEvent   { return SKAControlEvent(rawValue: 1 << 7) }
+  
   static var AllOptions:     [SKAControlEvent] {
     return [.TouchDown, .TouchUpInside, .TouchUpOutside, .DragOutside, .DragInside, .DragEnter, .DragExit, .TouchCancelled]
   }

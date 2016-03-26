@@ -67,7 +67,9 @@ class SKAButtonSprite : SKAControlSprite {
   required init?(coder aDecoder: NSCoder) {
     childNode = SKSpriteNode()
     touchTarget = CGSize()
+
     super.init(coder: aDecoder)
+
     self.addChild(childNode)
   }
   
@@ -263,6 +265,7 @@ class SKAButtonSprite : SKAControlSprite {
     get {
       return childNode.texture
     }
+
     set {
       childNode.texture = newValue
     }
@@ -272,6 +275,7 @@ class SKAButtonSprite : SKAControlSprite {
     get {
       return childNode.normalTexture
     }
+
     set {
       childNode.normalTexture = newValue
     }
@@ -281,6 +285,7 @@ class SKAButtonSprite : SKAControlSprite {
     get {
       return childNode.color
     }
+
     set {
       super.color = SKColor.clearColor()
       childNode.color = newValue
@@ -291,6 +296,7 @@ class SKAButtonSprite : SKAControlSprite {
     get {
       return childNode.colorBlendFactor
     }
+    
     set {
       super.colorBlendFactor = 0.0
       childNode.colorBlendFactor = newValue

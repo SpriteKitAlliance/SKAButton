@@ -35,6 +35,7 @@ extension SKAControlSprite {
       lastEvent = .TouchDown
       controlState.insert(.Highlighted)
     }
+    
     super.touchesBegan(touches , withEvent:event)
   }
 

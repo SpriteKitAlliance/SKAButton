@@ -37,6 +37,7 @@ extension SKAControlSprite {
    */
   func addTarget(target: AnyObject, selector: Selector, forControlEvents events: SKAControlEvent) {
     userInteractionEnabled = true
+    
     let buttonSelector = SKASelector(target: target, selector: selector)
     addButtonSelector(buttonSelector, forControlEvents: events)
   }

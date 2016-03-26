@@ -53,6 +53,7 @@ class SKAControlSprite : SKSpriteNode {
     get {
       return controlState.contains(.Selected)
     }
+
     set(newValue) {
       if newValue {
         controlState.insert(.Selected)
@@ -70,6 +71,7 @@ class SKAControlSprite : SKSpriteNode {
     get {
       return !controlState.contains(.Disabled)
     }
+    
     set(newValue) {
       if newValue {
         controlState.subtractInPlace(.Disabled)
