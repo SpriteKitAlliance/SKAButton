@@ -5,32 +5,31 @@
 //  Created by Marc Vandehey on 10/5/15.
 //  Copyright © 2015 Sprite Kit Alliance. All rights reserved.
 //
-
 import Foundation
 import SpriteKit
 
 /**
  SKAControlEvent Mimics the usefulness of UIControl class
  - Note: None - Used internally only
- 
+
  TouchDown - User Touches Down on the button
- 
+
  TouchUpInside - User releases Touch inside the bounds of the button
- 
+
  TouchUpOutside - User releases Touch outside the bounds of the button
- 
+
  DragOutside - User Drags touch from outside the bounds of the button and stays outside
- 
+
  DragInside - User Drags touch from inside the bounds of the button and stays inside
- 
+
  DragEnter - User Drags touch from outside the bounds of the button to inside the bounds of the button
- 
+
  DragExit - User Drags touch from inside the bounds of the button to outside the bounds of the button
  */
-struct SKAControlEvent: OptionSetType, Hashable {
+struct SKAControlEvent: OptionSet, Hashable {
   let rawValue: Int
   init(rawValue: Int) { self.rawValue = rawValue }
-  
+
   static var None:           SKAControlEvent   { return SKAControlEvent(rawValue: 0) }
   static var TouchDown:      SKAControlEvent   { return SKAControlEvent(rawValue: 1 << 0) }
   static var TouchUpInside:  SKAControlEvent   { return SKAControlEvent(rawValue: 1 << 1) }
@@ -43,7 +42,7 @@ struct SKAControlEvent: OptionSetType, Hashable {
   static var AllOptions:     [SKAControlEvent] {
     return [.TouchDown, .TouchUpInside, .TouchUpOutside, .DragOutside, .DragInside, .DragEnter, .DragExit, .TouchCancelled]
   }
-  
+
   var hashValue: Int {
     return rawValue.hashValue
   }
@@ -61,20 +60,20 @@ struct SKASelector {
 
 /// SKSpriteNode set up to mimic the utility of UIControl
 class SKAControlSprite : SKSpriteNode {
-  private var selectors = [SKAControlEvent: [SKASelector]]()
-  
+  fileprivate var selectors = [SKAControlEvent: [SKASelector]]()
+
   /**
    Current State of the button
    - Note: ReadOnly
    */
-  private(set) var controlState:SKAControlState = .Normal {
+  fileprivate(set) var controlState:SKAControlState = .Normal {
     didSet {
       if oldValue != controlState {
         updateControl()
       }
     }
   }
-  
+
   /**
    Sets the button to the selected state
    - Note: If an SKAction is taking place, the selected state may not show properly
@@ -87,11 +86,11 @@ class SKAControlSprite : SKSpriteNode {
       if newValue {
         controlState.insert(.Selected)
       } else {
-        controlState.subtractInPlace(.Selected)
+        controlState.subtract(.Selected)
       }
     }
   }
-  
+
   /**
    Sets the button to the enabled/disabled state. In a disabled state, the button will not trigger selectors
    - Note: If an SKAction is taking place, the disabled state may not show properly
@@ -102,35 +101,36 @@ class SKAControlSprite : SKSpriteNode {
     }
     set(newValue) {
       if newValue {
-        controlState.subtractInPlace(.Disabled)
+        controlState.subtract(.Disabled)
       } else {
         controlState.insert(.Disabled)
       }
     }
   }
-  
+
   // MARK: - Selector Events
-  
+
   /**
-  Add target for a SKAControlEvent. You may call this multiple times and you can specify multiple targets for any event.
-  - Parameter target: Object the selecter will be called on
-  - Parameter selector: The chosen selector for the event that is a member of the target
-  - Parameter events: SKAControlEvents that you want to register the selector to
-  - Returns: void
-  */
-  func addTarget(target: AnyObject, selector: Selector, forControlEvents events: SKAControlEvent) {
-    userInteractionEnabled = true
+   Add target for a SKAControlEvent. You may call this multiple times and you can specify multiple targets for any event.
+   - Parameter target: Object the selecter will be called on
+   - Parameter selector: The chosen selector for the event that is a member of the target
+   - Parameter events: SKAControlEvents that you want to register the selector to
+   - Returns: void
+   */
+  func addTarget(_ target: AnyObject, selector: Selector, forControlEvents events: SKAControlEvent) {
+    isUserInteractionEnabled = true
     let buttonSelector = SKASelector(target: target, selector: selector)
+
     addButtonSelector(buttonSelector, forControlEvents: events)
   }
-  
+
   /**
    Add Selector(s) to our dictionary of actions based on the SKAControlEvent
    - Parameter buttonSelector: Internal struct containing the selector and the target
    - Parameter events: SKAControl event(s) associated to the selector
    - Returns: void
    */
-  private func addButtonSelector(buttonSelector: SKASelector, forControlEvents events: SKAControlEvent) {
+  fileprivate func addButtonSelector(_ buttonSelector: SKASelector, forControlEvents events: SKAControlEvent) {
     for option in SKAControlEvent.AllOptions where events.contains(option) {
       if var buttonSelectors = selectors[option] {
         buttonSelectors.append(buttonSelector)
@@ -140,28 +140,28 @@ class SKAControlSprite : SKSpriteNode {
       }
     }
   }
-  
+
   /**
    Checks if there are any listed selectors for the control event, and performs them
    - Parameter event: Single control event
    - Returns: void
    */
-  private func performSelectorsForEvent(event:SKAControlEvent) {
+  fileprivate func performSelectorsForEvent(_ event:SKAControlEvent) {
     guard let selectors = selectors[event] else { return }
     performSelectors(selectors)
   }
-  
+
   /*
-  Loops through the selected actions and performs the selectors associated to them
-  - Parameter buttonSelectors: buttonSelectors Array of button selectors to perform
-  - Returns: void
-  */
-  private func performSelectors(buttonSelectors: [SKASelector]) {
+   Loops through the selected actions and performs the selectors associated to them
+   - Parameter buttonSelectors: buttonSelectors Array of button selectors to perform
+   - Returns: void
+   */
+  fileprivate func performSelectors(_ buttonSelectors: [SKASelector]) {
     for selector in buttonSelectors {
-      selector.target.performSelector(selector.selector, withObject: self)
+      let _ = selector.target.perform(selector.selector, with: selector.target);
     }
   }
-  
+
   /**
    Update the control based on the state.
    - Note: Override this in children
@@ -170,70 +170,101 @@ class SKAControlSprite : SKSpriteNode {
   func updateControl() {
     //Override this in children
   }
-  
+
   /// Save a touch to help determine if the touch just entered or exited the node
-  private var lastEvent:SKAControlEvent = .None
-  
+  fileprivate var lastEvent:SKAControlEvent = .None
+
   // MARK: - Touch Methods
-  
-  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    if let _ = touches.first as UITouch? where enabled {
+
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    if let _ = touches.first as UITouch?, enabled {
       performSelectorsForEvent(.TouchDown)
       lastEvent = .TouchDown
       controlState.insert(.Highlighted)
     }
-    super.touchesBegan(touches , withEvent:event)
+
+    super.touchesBegan(touches, with:event)
   }
-  
-  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    if let touch = touches.first as UITouch?, parent = parent where enabled {
-      let currentLocation = (touch.locationInNode(parent))
-      
-      if lastEvent == .DragInside && !containsPoint(currentLocation) {
+
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    if let touch = touches.first as UITouch?, let parent = parent, enabled {
+      let currentLocation = (touch.location(in: parent))
+
+      if lastEvent == .DragInside && !contains(currentLocation) {
         ///Touch Moved Outside Node
-        controlState.subtractInPlace(.Highlighted)
+        controlState.subtract(.Highlighted)
         performSelectorsForEvent(.DragExit)
         lastEvent = .DragExit
-      } else if lastEvent == .DragOutside && containsPoint(currentLocation) {
+      } else if lastEvent == .DragOutside && contains(currentLocation) {
         ///Touched Moved Inside Node
         controlState.insert(.Highlighted)
         performSelectorsForEvent(.DragEnter)
         lastEvent = .DragEnter
-      } else if !containsPoint(currentLocation) {
+      } else if !contains(currentLocation) {
         /// Touch stayed Outside Node
         performSelectorsForEvent(.DragOutside)
         lastEvent = .DragOutside
-      } else if containsPoint(currentLocation) {
+      } else if contains(currentLocation) {
         ///Touch Stayed Inside Node
         performSelectorsForEvent(.DragInside)
         lastEvent = .DragInside
       }
     }
-    
-    super.touchesMoved(touches, withEvent: event)
+
+    super.touchesMoved(touches, with: event)
   }
-  
-  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     lastEvent = .None
-    if let touch = touches.first as UITouch?, parent = parent where enabled {
-      if containsPoint(touch.locationInNode(parent)) {
+    if let touch = touches.first as UITouch?, let parent = parent, enabled {
+      if contains(touch.location(in: parent)) {
         performSelectorsForEvent(.TouchUpInside)
       } else {
         performSelectorsForEvent(.TouchUpOutside)
       }
-      
-      controlState.subtractInPlace(.Highlighted)
+
+      controlState.subtract(.Highlighted)
     }
-    
-    super.touchesEnded(touches, withEvent: event)
+
+    super.touchesEnded(touches, with: event)
   }
-  
-  override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+
+
+  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
     lastEvent = .None
-    if let _ = touches?.first as UITouch? {
-      performSelectorsForEvent(.TouchCancelled)
+
+    performSelectorsForEvent( .TouchCancelled)
+
+    super.touchesCancelled(touches, with: event)
+  }
+
+  /**
+   SKAControlState Possible states for the SKAButton
+   - Note: Normal - No States are active on the button
+
+   Highlighted - Button is being touched
+
+   Selected - Button in selected state
+
+   Disabled - Button in disabled state, will ignore SKAControlEvents
+   */
+  struct SKAControlState: OptionSet, Hashable {
+    let rawValue: Int
+    let key: String
+    init(rawValue: Int) {
+      self.rawValue = rawValue
+      self.key = "\(rawValue)"
     }
-    
-    super.touchesCancelled(touches, withEvent: event)
+
+    static var Normal:       SKAControlState { return SKAControlState(rawValue: 0 << 0) }
+    static var Highlighted:  SKAControlState { return SKAControlState(rawValue: 1 << 0) }
+    static var Selected:     SKAControlState { return SKAControlState(rawValue: 1 << 1) }
+    static var Disabled:     SKAControlState { return SKAControlState(rawValue: 1 << 2) }
+    static var AllOptions: [SKAControlState] {
+      return [.Normal, .Highlighted, .Selected, .Disabled]
+    }
+    var hashValue: Int {
+      return rawValue.hashValue
+    }
   }
 }

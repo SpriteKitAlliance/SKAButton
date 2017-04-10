@@ -27,36 +27,6 @@ import Foundation
 import SpriteKit
 
 /**
- SKAControlState Possible states for the SKAButton
- - Note: Normal - No States are active on the button
- 
- Highlighted - Button is being touched
- 
- Selected - Button in selected state
- 
- Disabled - Button in disabled state, will ignore SKAControlEvents
- */
-struct SKAControlState: OptionSetType, Hashable {
-  let rawValue: Int
-  let key: String
-  init(rawValue: Int) {
-    self.rawValue = rawValue
-    self.key = "\(rawValue)"
-  }
-  
-  static var Normal:       SKAControlState { return SKAControlState(rawValue: 0 << 0) }
-  static var Highlighted:  SKAControlState { return SKAControlState(rawValue: 1 << 0) }
-  static var Selected:     SKAControlState { return SKAControlState(rawValue: 1 << 1) }
-  static var Disabled:     SKAControlState { return SKAControlState(rawValue: 1 << 2) }
-  static var AllOptions: [SKAControlState] {
-    return [.Normal, .Highlighted, .Selected, .Disabled]
-  }
-  var hashValue: Int {
-    return rawValue.hashValue
-  }
-}
-
-/**
  Insets for the texture/color of the node
  - Note: Inset direction will move the texture/color towards that edge at the given amount.
  
@@ -91,12 +61,12 @@ struct SKButtonEdgeInsets {
  - Note: Supports Texture per state, normal Texture per state, and color per state
  */
 class SKAButtonSprite : SKAControlSprite {
-  private var textures = [SKAControlState: SKTexture]()
-  private var normalTextures = [SKAControlState: SKTexture]()
-  private var colors = [SKAControlState: SKColor]()
-  private var colorBlendFactors = [SKAControlState: CGFloat]()
-  private var backgroundColor = SKColor.clearColor()
-  private var childNode: SKSpriteNode //Child node to act as our real node, the child node gets all of the updates the normal node would, and we keep the actual node as a clickable area only.
+  fileprivate var textures = [SKAControlState: SKTexture]()
+  fileprivate var normalTextures = [SKAControlState: SKTexture]()
+  fileprivate var colors = [SKAControlState: SKColor]()
+  fileprivate var colorBlendFactors = [SKAControlState: CGFloat]()
+  fileprivate var backgroundColor = SKColor.clear
+  fileprivate var childNode: SKSpriteNode //Child node to act as our real node, the child node gets all of the updates the normal node would, and we keep the actual node as a clickable area only.
   
   /// Will restore the size of the texture node to the button size every time the button is updated
   var restoreSizeAfterAction = true
@@ -120,7 +90,7 @@ class SKAButtonSprite : SKAControlSprite {
    Use this method for initing with normal Map textures, SKSpriteNode's version will not persist the .Normal Textures correctly
    */
   convenience init(texture: SKTexture?, normalMap: SKTexture?) {
-    self.init(texture: texture, color: UIColor.clearColor(), size: texture?.size() ?? CGSize())
+    self.init(texture: texture, color: UIColor.clear, size: texture?.size() ?? CGSize())
     setNormalTexture(normalMap, forState: .Normal)
   }
   
@@ -230,13 +200,13 @@ class SKAButtonSprite : SKAControlSprite {
   - Parameter state: The specified control state to trigger the color change
   - Returns: void
   */
-  func setColor(color:SKColor?, forState state:SKAControlState) {
+  func setColor(_ color:SKColor?, forState state:SKAControlState) {
     if let color = color {
       colors[state] = color
     } else {
       for controlState in SKAControlState.AllOptions {
         if colors.keys.contains(controlState) {
-          colors.removeValueForKey(controlState)
+          colors.removeValue(forKey: controlState)
         }
       }
     }
@@ -250,13 +220,13 @@ class SKAButtonSprite : SKAControlSprite {
    - Parameter state: The specefied control state to trigger the color change
    - Returns: void
    */
-  func setColorBlendFactor(colorBlend:CGFloat?, forState state:SKAControlState){
+  func setColorBlendFactor(_ colorBlend:CGFloat?, forState state:SKAControlState){
     if let colorBlend = colorBlend {
       colorBlendFactors[state] = colorBlend
     } else {
       for controlState in SKAControlState.AllOptions {
         if colorBlendFactors.keys.contains(controlState) {
-          colorBlendFactors.removeValueForKey(controlState)
+          colorBlendFactors.removeValue(forKey: controlState)
         }
       }
     }
@@ -270,13 +240,13 @@ class SKAButtonSprite : SKAControlSprite {
    - Parameter state: The specified control state to trigger the texture change
    - Returns: void
    */
-  func setTexture(texture:SKTexture?, forState state:SKAControlState) {
+  func setTexture(_ texture:SKTexture?, forState state:SKAControlState) {
     if let texture = texture {
       textures[state] = texture
     } else {
       for controlState in SKAControlState.AllOptions {
         if textures.keys.contains(controlState) {
-          textures.removeValueForKey(controlState)
+          textures.removeValue(forKey: controlState)
         }
       }
     }
@@ -290,13 +260,13 @@ class SKAButtonSprite : SKAControlSprite {
    - Parameter state: The specified control state to trigger the normal texture change
    - Returns: void
    */
-  func setNormalTexture(texture:SKTexture?, forState state:SKAControlState) {
+  func setNormalTexture(_ texture:SKTexture?, forState state:SKAControlState) {
     if let texture = texture {
       normalTextures[state] = texture
     } else {
       for controlState in SKAControlState.AllOptions {
         if normalTextures.keys.contains(controlState) {
-          normalTextures.removeValueForKey(controlState)
+          normalTextures.removeValue(forKey: controlState)
         }
       }
     }
@@ -305,7 +275,7 @@ class SKAButtonSprite : SKAControlSprite {
   }
   
   /// Private variable to tell us when to update the button size or the child size
-  private var updatingTargetSize = false
+  fileprivate var updatingTargetSize = false
   
   /**
    Insets for the texture/color of the node
@@ -328,7 +298,7 @@ class SKAButtonSprite : SKAControlSprite {
    - Parameter size: The size of the touchable area
    - Returns: void
    */
-  func setButtonTargetSize(size:CGSize) {
+  func setButtonTargetSize(_ size:CGSize) {
     updatingTargetSize = true
     self.size = size
   }
@@ -340,7 +310,7 @@ class SKAButtonSprite : SKAControlSprite {
    - Returns: void
    - Note: Inset direction will move the texture/color towards that edge at the given amount.
    */
-  func setButtonTargetSize(size:CGSize, insets:SKButtonEdgeInsets) {
+  func setButtonTargetSize(_ size:CGSize, insets:SKButtonEdgeInsets) {
     self.insets = insets
     self.setButtonTargetSize(size)
   }
@@ -371,24 +341,24 @@ class SKAButtonSprite : SKAControlSprite {
   
   // MARK: Override basic functions and pass them to our child node
   
-  override func actionForKey(key: String) -> SKAction? {
-    return childNode.actionForKey(key)
+  override func action(forKey key: String) -> SKAction? {
+    return childNode.action(forKey: key)
   }
   
-  override func runAction(action: SKAction) {
-    childNode.runAction(action)
+  override func run(_ action: SKAction) {
+    childNode.run(action)
   }
   
-  override func runAction(action: SKAction, completion block: () -> Void) {
-    childNode.runAction(action, completion: block)
+  override func run(_ action: SKAction, completion block: @escaping () -> Void) {
+    childNode.run(action, completion: block)
   }
   
-  override func runAction(action: SKAction, withKey key: String) {
-    childNode.runAction(action, withKey: key)
+  override func run(_ action: SKAction, withKey key: String) {
+    childNode.run(action, withKey: key)
   }
   
-  override func removeActionForKey(key: String) {
-    childNode.removeActionForKey(key)
+  override func removeAction(forKey key: String) {
+    childNode.removeAction(forKey: key)
     updateControl()
   }
   
@@ -424,7 +394,7 @@ class SKAButtonSprite : SKAControlSprite {
       return childNode.color
     }
     set {
-      super.color = SKColor.clearColor()
+      super.color = SKColor.clear
       childNode.color = newValue
     }
   }
@@ -460,7 +430,7 @@ class SKAButtonSprite : SKAControlSprite {
   - Parameter color: Color to darken
   - Returns: UIColor - Darkened Color
   */
-  private func darkenColor(color: UIColor) -> UIColor {
+  fileprivate func darkenColor(_ color: UIColor) -> UIColor {
     var redComponent: CGFloat = 0.0
     var blueComponent: CGFloat = 0.0
     var greenComponent: CGFloat = 0.0
@@ -488,7 +458,7 @@ class SKAButtonSprite : SKAControlSprite {
    - Parameter color: Color to darken
    - Returns: UIColor - Lightened Color
    */
-  private func lightenColor(color: UIColor) -> UIColor {
+  fileprivate func lightenColor(_ color: UIColor) -> UIColor {
     var redComponent: CGFloat = 1.0
     var blueComponent: CGFloat = 1.0
     var greenComponent: CGFloat = 1.0

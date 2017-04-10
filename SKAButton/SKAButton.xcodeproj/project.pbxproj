@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BBF474FE1BC2F78500C8E58A /* SKAButton.h in Headers */ = {isa = PBXBuildFile; fileRef = BBF474FD1BC2F78500C8E58A /* SKAButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BBF475081BC2F7BF00C8E58A /* SKAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF475071BC2F7BF00C8E58A /* SKAButton.swift */; settings = {ASSET_TAGS = (); }; };
-		BBF4750A1BC2F8E300C8E58A /* SKAControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF475091BC2F8E300C8E58A /* SKAControl.swift */; settings = {ASSET_TAGS = (); }; };
+		BBF475081BC2F7BF00C8E58A /* SKAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF475071BC2F7BF00C8E58A /* SKAButton.swift */; };
+		BBF4750A1BC2F8E300C8E58A /* SKAControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF475091BC2F8E300C8E58A /* SKAControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +118,8 @@
 				TargetAttributes = {
 					BBF474F91BC2F78500C8E58A = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = SYZ2B4B9CC;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -203,6 +205,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -243,6 +246,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -253,7 +257,9 @@
 		BBF475031BC2F78500C8E58A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = SYZ2B4B9CC;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -263,6 +269,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = SKA.SKAButton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -270,6 +277,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = SYZ2B4B9CC;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -279,6 +287,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = SKA.SKAButton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -301,6 +310,7 @@
 				BBF475041BC2F78500C8E58A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

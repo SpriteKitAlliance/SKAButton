@@ -191,9 +191,12 @@
 				TargetAttributes = {
 					BB22A8391B94B2460064B89E = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = SYZ2B4B9CC;
+						LastSwiftMigration = 0830;
 					};
 					BB22A84D1B94B2460064B89E = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0830;
 						TestTargetID = BB22A8391B94B2460064B89E;
 					};
 				};
@@ -368,11 +371,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SYZ2B4B9CC;
 				INFOPLIST_FILE = SKAToolKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SKA.SKAButtonExample;
 				PRODUCT_NAME = SKASimpleButtonExample;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -380,11 +385,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SYZ2B4B9CC;
 				INFOPLIST_FILE = SKAToolKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SKA.SKAButtonExample;
 				PRODUCT_NAME = SKASimpleButtonExample;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -396,6 +403,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SKA.SKAToolKitTests;
 				PRODUCT_NAME = SKASimpleButtonExample;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SKASimpleButtonExample.app/SKASimpleButtonExample";
 			};
 			name = Debug;
@@ -408,6 +416,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SKA.SKAToolKitTests;
 				PRODUCT_NAME = SKASimpleButtonExample;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SKASimpleButtonExample.app/SKASimpleButtonExample";
 			};
 			name = Release;

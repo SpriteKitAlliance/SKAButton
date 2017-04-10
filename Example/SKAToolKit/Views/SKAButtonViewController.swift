@@ -15,7 +15,7 @@ class SKAButtonViewController : UIViewController {
   override func loadView() {
     super.loadView()
     
-    let appFrame = UIScreen.mainScreen().bounds
+    let appFrame = UIScreen.main.bounds
     let skView = SKView(frame: appFrame)
     self.view = skView
   }
@@ -30,7 +30,7 @@ class SKAButtonViewController : UIViewController {
     
     let gameScene = ButtonGameScene()
     gameScene.size = skView.bounds.size
-    gameScene.scaleMode = .AspectFill
+    gameScene.scaleMode = .aspectFill
     
     skView.presentScene(gameScene)
   }

@@ -36,15 +36,15 @@ class ButtonGameScene: SKScene {
   let shakeHarderKey = "action-shake-harder"
   let atlas = SKTextureAtlas(named: "Textures")
   
-  override func didMoveToView(view: SKView) {
-    super.didMoveToView(view)
+  override func didMove(to view: SKView) {
+    super.didMove(to: view)
     
     //Setup The Disable Button
-    disableButton = SKAButtonSprite(color: UIColor.redColor(), size: CGSize(width: 260, height: 44))
+    disableButton = SKAButtonSprite(color: UIColor.red, size: CGSize(width: 260, height: 44))
     disableButton.setTexture(self.atlas.textureNamed("disable"), forState: .Normal)
     disableButton.setTexture(self.atlas.textureNamed("enabled"), forState: .Selected)
-    disableButton.position = CGPoint(x: view.center.x, y: UIScreen.mainScreen().bounds.height - 100)
-    disableButton.addTarget(self, selector: "disableSKA:", forControlEvents: .TouchUpInside)
+    disableButton.position = CGPoint(x: view.center.x, y: UIScreen.main.bounds.height - 100)
+    disableButton.addTarget(self, selector: #selector(ButtonGameScene.disableSKA(_:)), forControlEvents: .TouchUpInside)
     disableButton.setButtonTargetSize(CGSize(width: 300, height: 60))
     disableButton.setAdjustsSpriteOnHighlight()
     
@@ -53,21 +53,21 @@ class ButtonGameScene: SKScene {
     //Dance Action
     let textures = [self.atlas.textureNamed("ska-dance1"), self.atlas.textureNamed("ska-dance2"), self.atlas.textureNamed("ska-dance1"), self.atlas.textureNamed("ska-dance3")]
     
-    let dance = SKAction.animateWithTextures(textures, timePerFrame: 0.12, resize: true, restore: true)
-    danceAction = SKAction.repeatActionForever(dance)
+    let dance = SKAction.animate(with: textures, timePerFrame: 0.12, resize: true, restore: true)
+    danceAction = SKAction.repeatForever(dance)
     
     //SKA Button
     //This also sets the .Normal texture as the stand and clear color
-    button = SKAButtonSprite(texture: self.atlas.textureNamed("ska-stand"), color: UIColor.clearColor(), size: CGSize(width: 126, height: 112))
+    button = SKAButtonSprite(texture: self.atlas.textureNamed("ska-stand"), color: UIColor.clear, size: CGSize(width: 126, height: 112))
     addChild(button)
         
-    button.addTarget(self, selector: "touchUpInside:", forControlEvents: .TouchUpInside)
-    button.addTarget(self, selector: "touchUpOutside:", forControlEvents: .TouchUpOutside)
-    button.addTarget(self, selector: "dragOutside:", forControlEvents: .DragOutside)
-    button.addTarget(self, selector: "dragInside:", forControlEvents: .DragInside)
-    button.addTarget(self, selector: "dragEnter:", forControlEvents: .DragEnter)
-    button.addTarget(self, selector: "dragExit:", forControlEvents: .DragExit)
-    button.addTarget(self, selector: "touchDown:", forControlEvents: .TouchDown)
+    button.addTarget(self, selector: #selector(ButtonGameScene.touchUpInside(_:)), forControlEvents: .TouchUpInside)
+    button.addTarget(self, selector: #selector(ButtonGameScene.touchUpOutside(_:)), forControlEvents: .TouchUpOutside)
+    button.addTarget(self, selector: #selector(ButtonGameScene.dragOutside(_:)), forControlEvents: .DragOutside)
+    button.addTarget(self, selector: #selector(ButtonGameScene.dragInside(_:)), forControlEvents: .DragInside)
+    button.addTarget(self, selector: #selector(ButtonGameScene.dragEnter(_:)), forControlEvents: .DragEnter)
+    button.addTarget(self, selector: #selector(ButtonGameScene.dragExit(_:)), forControlEvents: .DragExit)
+    button.addTarget(self, selector: #selector(ButtonGameScene.touchDown(_:)), forControlEvents: .TouchDown)
 
     button.setTexture(self.atlas.textureNamed("ska-pressed"), forState: .Highlighted)
     button.setTexture(self.atlas.textureNamed("ska-disabled"), forState: .Disabled)
@@ -76,87 +76,87 @@ class ButtonGameScene: SKScene {
     button.setAdjustsSpriteOnDisable()
   }
   
-  func touchUpInside(sender:AnyObject) {
+  func touchUpInside(_ sender:Any) {
     print("SKABUTTON: touchUpInside")
     
     //Remove the shake action
-    button.removeActionForKey(shakeKey)
+    button.removeAction(forKey: shakeKey)
     
     if button.selected {
       button.selected = false
-      button.removeActionForKey(danceKey)
+      button.removeAction(forKey: danceKey)
       
       //Remove shake harder if not dancing
-      button.removeActionForKey(shakeHarderKey)
+      button.removeAction(forKey: shakeHarderKey)
     } else {
       button.selected = true
-      button.runAction(danceAction, withKey: danceKey)
+      button.run(danceAction, withKey: danceKey)
     }
   }
   
-  func touchUpOutside(sender:AnyObject) {
+  func touchUpOutside(_ sender:Any) {
     print("SKABUTTON: touchUpOutside")
     
-    button.removeActionForKey(shakeKey)
-    button.removeActionForKey(shakeHarderKey)
+    button.removeAction(forKey: shakeKey)
+    button.removeAction(forKey: shakeHarderKey)
   }
   
-  func dragOutside(sender:AnyObject) {
+  func dragOutside(_ sender:Any) {
     print("SKABUTTON: dragOutside")
   }
   
-  func dragInside(sender:AnyObject) {
+  func dragInside(_ sender:Any) {
     print("SKABUTTON: dragInside")
   }
   
-  func dragEnter(sender:AnyObject) {
+  func dragEnter(_ sender:Any) {
     print("SKABUTTON: dragEnter")
     
-    button.removeActionForKey(danceKey)
+    button.removeAction(forKey: danceKey)
     
     //Shake a lot
-    button.runAction(makeNewShakeAction(4), withKey: shakeHarderKey)
+    button.run(makeNewShakeAction(4), withKey: shakeHarderKey)
   }
   
-  func dragExit(sender:AnyObject) {
+  func dragExit(_ sender:Any) {
     print("SKABUTTON: dragExit")
-    button.removeActionForKey(shakeKey)
-    button.removeActionForKey(shakeHarderKey)
+    button.removeAction(forKey: shakeKey)
+    button.removeAction(forKey: shakeHarderKey)
     
-    if button.selected ?? false {
+    if button.selected {
       button.selected = true
       
-      button.runAction(danceAction, withKey: danceKey)
+      button.run(danceAction, withKey: danceKey)
     }
   }
   
-  func touchDown(sender:AnyObject) {
+  func touchDown(_ sender:Any) {
     print("SKABUTTON: touchDown")
     
-    button.removeActionForKey(danceKey)
-    button.removeActionForKey(shakeHarderKey)
+    button.removeAction(forKey: danceKey)
+    button.removeAction(forKey: shakeHarderKey)
     
     //Shake a little
-    button.runAction(makeNewShakeAction(2), withKey: shakeKey)
+    button.run(makeNewShakeAction(2), withKey: shakeKey)
   }
   
-  func disableSKA(sender:AnyObject) {
+  func disableSKA(_ sender:Any?) {
     button.enabled = !button.enabled
     disableButton.selected = !button.enabled
   }
   
   //Set up a new shake action with random movements horizontally
-  func makeNewShakeAction(shakeAmount:Int) -> SKAction {
-    let shakeLeft = CGFloat(-(random() % shakeAmount + 1))
-    let shakeRight = CGFloat(random() % shakeAmount + 1)
+  func makeNewShakeAction(_ shakeAmount:Int) -> SKAction {
+    let shakeLeft = CGFloat(-(Int(arc4random()) % shakeAmount + 1))
+    let shakeRight = CGFloat(Int(arc4random()) % shakeAmount + 1)
     
-    let shake1 = SKAction.moveByX(shakeLeft, y: 0, duration: 0.02)
-    let shake2 = SKAction.moveByX(-shakeLeft, y: 0, duration: 0.01)
-    let shake3 = SKAction.moveByX(shakeRight, y: 0, duration: 0.02)
-    let shake4 = SKAction.moveByX(-shakeRight, y: 0, duration: 0.01)
+    let shake1 = SKAction.moveBy(x: shakeLeft, y: 0, duration: 0.02)
+    let shake2 = SKAction.moveBy(x: -shakeLeft, y: 0, duration: 0.01)
+    let shake3 = SKAction.moveBy(x: shakeRight, y: 0, duration: 0.02)
+    let shake4 = SKAction.moveBy(x: -shakeRight, y: 0, duration: 0.01)
     
     let shakes = SKAction.sequence([shake1, shake2, shake3, shake4])
     
-    return SKAction.repeatActionForever(shakes)
+    return SKAction.repeatForever(shakes)
   }
 }

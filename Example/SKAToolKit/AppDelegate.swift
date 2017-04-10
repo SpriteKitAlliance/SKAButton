@@ -14,23 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   var button:SKAButtonSprite?
 
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     let viewController = SKAButtonViewController()
     
-    window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    window?.backgroundColor = UIColor.whiteColor()
+    window = UIWindow(frame: UIScreen.main.bounds)
+    window?.backgroundColor = UIColor.white
     window?.rootViewController = viewController
     window?.makeKeyAndVisible()
     
     return true
-  }
-  
-  func something(sender:AnyObject) {
-    print("something selector \(sender)")
-  }
-  
-  func somethingElse(sender:AnyObject) {
-    print("something else selector \(sender)")
   }
 }
