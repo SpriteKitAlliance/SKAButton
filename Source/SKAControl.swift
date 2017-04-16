@@ -66,7 +66,7 @@ class SKAControlSprite : SKSpriteNode {
    Current State of the button
    - Note: ReadOnly
    */
-  fileprivate(set) var controlState:SKAControlState = .Normal {
+  private(set) var controlState:SKAControlState = .Normal {
     didSet {
       if oldValue != controlState {
         updateControl()
@@ -158,7 +158,7 @@ class SKAControlSprite : SKSpriteNode {
    */
   fileprivate func performSelectors(_ buttonSelectors: [SKASelector]) {
     for selector in buttonSelectors {
-      let _ = selector.target.perform(selector.selector, with: selector.target);
+      let _ = selector.target.perform(selector.selector, with: self);
     }
   }
 
